@@ -1,9 +1,10 @@
 spring:
   datasource:
     # Para correr local
-    url: jdbc:postgresql://localhost:5432/ordersdb
+    url: jdbc:postgresql://postgres:5432/ordersdb
     username: postgres
     password: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
