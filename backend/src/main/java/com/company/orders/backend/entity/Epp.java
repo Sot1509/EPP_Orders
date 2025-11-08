@@ -1,31 +1,54 @@
 package com.company.orders.backend.entity;
 
-import jakarta.persistence.*;
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "epp")
 public class Epp {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
 
-    @OneToMany(mappedBy = "epp")
-    private List<Pedido> pedidos;
+    private String tipo;
 
-    public Epp() {}
-    public Epp(Long id, String nombre, List<Pedido> pedidos) {
-        this.id = id;
-        this.nombre = nombre;
-        this.pedidos = pedidos;
+    // Constructor vacío requerido por JPA
+    public Epp() {
     }
 
-    // getters y setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public List<Pedido> getPedidos() { return pedidos; }
-    public void setPedidos(List<Pedido> pedidos) { this.pedidos = pedidos; }
+    public Epp(String nombre, String tipo) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+    }
+
+    // Getters y setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }
