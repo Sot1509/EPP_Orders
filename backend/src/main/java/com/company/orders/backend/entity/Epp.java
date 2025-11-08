@@ -1,33 +1,25 @@
 package com.company.orders.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "epp")
 public class Epp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nombre;
-
     private String tipo;
 
-    // Constructor vacío requerido por JPA
-    public Epp() {
-    }
+    public Epp() {}
 
-    public Epp(String nombre, String tipo) {
+    public Epp(Long id, String nombre, String tipo) {
+        this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
     }
 
-    // Getters y setters
+    // Getters y Setters
     public Long getId() {
         return id;
     }

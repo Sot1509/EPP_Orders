@@ -2,47 +2,73 @@ package com.company.orders.backend.controller;
 
 import com.company.orders.backend.entity.Pedido;
 import com.company.orders.backend.repository.PedidoRepository;
+import com.company.orders.backend.repository.EppRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/pedido")
+@RequestMapping("/api/pedidos")
 public class PedidoController {
 
     private final PedidoRepository pedidoRepository;
+    private final EppRepository eppRepository;
 
-    public PedidoController(PedidoRepository pedidoRepository) {
+    public PedidoController(PedidoRepository pedidoRepository, EppRepository eppRepository) {
         this.pedidoRepository = pedidoRepository;
+        this.eppRepository = eppRepository;
     }
 
+    // GET todos los pedidos
     @GetMapping
     public List<Pedido> getAllPedidos() {
         return pedidoRepository.findAll();
     }
 
-    @PostMapping
-    public Pedido createPedido(@RequestBody Pedido pedido) {
-        return pedidoRepository.save(pedido);
-    }
-
+    // GET un pedido por ID
     @GetMapping("/{id}")
-    public Pedido getPedidoById(@PathVariable Long id) {
-        return pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
+    public ResponseEntity<Pedido> getPedidoById(@PathVariable Long id) {
+        Optional<Pedido> pedido = pedidoRepository.findById(id);
+        return pedido.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // POST crear un pedido
+    @PostMapping
+    public ResponseEntity<Pedido> createPedido(@RequestBody Pedido pedido) {
+        if(pedido.getEpp() != null && pedido.getEpp().getId() != null) {
+            eppRepository.findById(pedido.getEpp().getId()).ifPresent(pedido::setEpp);
+        }
+        Pedido savedPedido = pedidoRepository.save(pedido);
+        return ResponseEntity.ok(savedPedido);
+    }
+
+    // PUT actualizar un pedido
     @PutMapping("/{id}")
-    public Pedido updatePedido(@PathVariable Long id, @RequestBody Pedido updatedPedido) {
-        Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
-        pedido.setCantidad(updatedPedido.getCantidad());
-        pedido.setEmpresa(updatedPedido.getEmpresa());
-        pedido.setFecha(updatedPedido.getFecha());
-        pedido.setEpp(updatedPedido.getEpp());
-        return pedidoRepository.save(pedido);
+    public ResponseEntity<Pedido> updatePedido(@PathVariable Long id, @RequestBody Pedido updatedPedido) {
+        return pedidoRepository.findById(id)
+                .map(pedido -> {
+                    pedido.setCantidad(updatedPedido.getCantidad());
+                    pedido.setEmpresa(updatedPedido.getEmpresa());
+                    pedido.setFecha(updatedPedido.getFecha());
+                    if(updatedPedido.getEpp() != null && updatedPedido.getEpp().getId() != null) {
+                        eppRepository.findById(updatedPedido.getEpp().getId()).ifPresent(pedido::setEpp);
+                    }
+                    pedidoRepository.save(pedido);
+                    return ResponseEntity.ok(pedido);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // DELETE un pedido
     @DeleteMapping("/{id}")
-    public void deletePedido(@PathVariable Long id) {
-        pedidoRepository.deleteById(id);
+    public ResponseEntity<Void> deletePedido(@PathVariable Long id) {
+        if(pedidoRepository.existsById(id)) {
+            pedidoRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
