@@ -1,0 +1,11 @@
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Java
+target/
+
+# System
+.DS_Store
+.idea/
+*.log
