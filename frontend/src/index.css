@@ -10,35 +10,43 @@ body {
   align-items: center;
 }
 
+/* Contenedor de tarjetas */
 .lista-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
-  justify-content: center;
+  justify-items: center;
   padding: 1rem;
 }
 
+/* Tarjetas */
 .pedido-card {
   position: relative;
   border-radius: 16px;
   padding: 16px;
   width: 100%;
   max-width: 250px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
   color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
+/* Elevación y animación al pasar el mouse */
 .pedido-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+/* Contenido dentro de la tarjeta */
+.pedido-content h3 {
+  margin: 0 0 8px 0;
 }
 
 .pedido-content p {
   margin: 4px 0;
 }
 
-/* Botones ocultos y visibles al hover */
+/* Botones ocultos inicialmente */
 .card-buttons {
   display: none;
   gap: 8px;
@@ -46,21 +54,28 @@ body {
   justify-content: space-around;
 }
 
+/* Mostrar botones al pasar el mouse */
 .pedido-card:hover .card-buttons {
   display: flex;
 }
 
+/* Botones estilo básico */
 .card-buttons button {
   padding: 6px 10px;
   font-size: 0.8rem;
-  background-color: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.9);
   color: #333;
+  transition: background-color 0.2s;
 }
 
 .card-buttons button:hover {
   background-color: #fff;
 }
 
+/* Paginación */
 .pagination {
   margin: 20px 0;
   display: flex;
@@ -73,6 +88,8 @@ body {
   cursor: pointer;
   background-color: rgba(255,255,255,0.2);
   color: #fff;
+  border: none;
+  border-radius: 6px;
 }
 
 .pagination button.active {
@@ -81,6 +98,7 @@ body {
   background-color: rgba(255, 209, 102, 0.8);
   color: #0b1b33;
 }
+
 .pagination button:hover {
   background-color: rgba(255,255,255,0.4);
 }

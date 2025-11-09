@@ -3,52 +3,26 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const DetallePedido = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [pedido, setPedido] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPedido = async () => {
-      try {
-        const res = await fetch(`http://localhost:8080/api/pedidos/${id}`);
-        if (!res.ok) throw new Error("Pedido no encontrado");
-        const data = await res.json();
-        setPedido(data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-    fetchPedido();
+    fetch(`/api/pedidos/${id}`)
+      .then(res => res.json())
+      .then(setPedido)
+      .catch(console.error);
   }, [id]);
 
-  if (loading) return <p>Cargando detalle...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (!pedido) return <p>Cargando...</p>;
 
   return (
-    <div style={{ padding: "40px", textAlign: "center", backgroundColor: "#d0e7ff", minHeight: "100vh" }}>
-      <h2>Detalle de Pedido</h2>
-      <p><strong>EPP:</strong> {pedido.epp.nombre}</p>
-      <p><strong>Tipo:</strong> {pedido.epp.tipo}</p>
-      <p><strong>Cantidad:</strong> {pedido.cantidad}</p>
-      <p><strong>Empresa:</strong> {pedido.empresa}</p>
-      <p><strong>Fecha:</strong> {pedido.fecha}</p>
-      <button
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          backgroundColor: "#0055a5",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-        onClick={() => navigate(-1)}
-      >
-        Volver
-      </button>
+    <div>
+      <h2>Detalle Pedido</h2>
+      <p>Empresa: {pedido.empresa}</p>
+      <p>Cantidad: {pedido.cantidad}</p>
+      <p>Fecha: {pedido.fecha}</p>
+      <p>EPP: {pedido.epp?.nombre || pedido.eppId}</p>
+      <button onClick={()=>navigate(-1)}>Volver</button>
     </div>
   );
 };
