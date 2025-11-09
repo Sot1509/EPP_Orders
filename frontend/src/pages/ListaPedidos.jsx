@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { usePedidos } from "../context/PedidoContext";
-import { useNavigate } from "react-router-dom";
+import FormularioPedido from "./FormularioPedido";
 import "../index.css";
 
 const ListaPedidos = () => {
   const { pedidos, loading, error, eliminarPedido } = usePedidos();
-  const navigate = useNavigate();
 
-  // Paginación simple
+  const [pedidoEditar, setPedidoEditar] = useState(null);
   const [paginaActual, setPaginaActual] = useState(0);
-  const pedidosPorPagina = 6; // 6 por fila para target layout
+  const pedidosPorPagina = 6;
   const totalPaginas = Math.ceil(pedidos.length / pedidosPorPagina);
 
   const pedidosMostrados = pedidos.slice(
@@ -21,14 +20,19 @@ const ListaPedidos = () => {
   if (error) return <p>Error: {error}</p>;
   if (!pedidos.length) return <p>No hay pedidos aún.</p>;
 
+  if (pedidoEditar)
+    return (
+      <FormularioPedido
+        pedidoEditar={pedidoEditar}
+        onVolver={() => setPedidoEditar(null)}
+      />
+    );
+
   return (
     <>
       <div className="lista-container">
         {pedidosMostrados.map((pedido) => (
-          <div
-            className={`pedido-card tipo-${pedido.epp.tipo.toLowerCase()}`}
-            key={pedido.id}
-          >
+          <div className="pedido-card" key={pedido.id}>
             <div className="pedido-content">
               <h3>{pedido.epp.nombre}</h3>
               <p>Cantidad: {pedido.cantidad}</p>
@@ -37,15 +41,8 @@ const ListaPedidos = () => {
             </div>
 
             <div className="card-buttons">
-              <button onClick={() => navigate(`/detalle/${pedido.id}`)}>
-                Ver
-              </button>
-              <button onClick={() => navigate(`/editar/${pedido.id}`)}>
-                Editar
-              </button>
-              <button onClick={() => eliminarPedido(pedido.id)}>
-                Eliminar
-              </button>
+              <button onClick={() => setPedidoEditar(pedido)}>Editar</button>
+              <button onClick={() => eliminarPedido(pedido.id)}>Eliminar</button>
             </div>
           </div>
         ))}
