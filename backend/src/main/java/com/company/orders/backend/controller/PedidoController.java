@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/pedidos")
+@CrossOrigin(origins = "*")
 public class PedidoController {
 
     private final PedidoRepository pedidoRepository;

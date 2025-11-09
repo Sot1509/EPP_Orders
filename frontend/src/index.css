@@ -1,0 +1,219 @@
+
+body {
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #0b1b33, #4672ab);
+  color: #f4f4f4;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Contenedores */
+.container {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  margin-top: 2rem;
+}
+
+/* Titulares */
+h1, h2, h3, h4, h5 {
+  color: #ffd166; /* Dorado suave */
+  font-weight: 600;
+}
+
+/* Botones */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #1d3557;
+  border-color: #1d3557;
+}
+.btn-primary:hover {
+  background-color: #274c77;
+  border-color: #274c77;
+}
+
+.btn-success {
+  background-color: #118ab2;
+  border-color: #118ab2;
+}
+.btn-success:hover {
+  background-color: #0e7490;
+  border-color: #0e7490;
+}
+
+.btn-secondary {
+  background-color: #adb5bd;
+  border-color: #adb5bd;
+  color: #0b1b33;
+}
+.btn-secondary:hover {
+  background-color: #ced4da;
+  border-color: #ced4da;
+  color: #000;
+}
+
+.btn-warning {
+  background-color: #ffd166;
+  border-color: #ffd166;
+  color: #0b1b33;
+}
+.btn-warning:hover {
+  background-color: #fcbf49;
+  border-color: #fcbf49;
+}
+
+.btn-danger {
+  background-color: #ef476f;
+  border-color: #ef476f;
+}
+.btn-danger:hover {
+  background-color: #d62839;
+  border-color: #d62839;
+}
+
+/* Tarjetas (cards) */
+.card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 12px;
+  color: #f8f9fa;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Formularios */
+.form-control, textarea {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+}
+
+.form-control:focus, textarea:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: #ffd166;
+  color: #fff;
+  box-shadow: 0 0 0 0.25rem rgba(255, 209, 102, 0.25);
+}
+
+label {
+  color: #ffd166;
+}
+
+/* Transiciones suaves */
+button, .card {
+  transition: all 0.3s ease;
+}
+
+/* Animación de aparición */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container, .card, form {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.lista-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.pedido-card {
+  position: relative;
+  border-radius: 16px;
+  padding: 16px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.pedido-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Colores según tipo de EPP */
+.tipo-guantes { background: #4caf50; }
+.tipo-casco { background: #f44336; }
+.tipo-chaleco { background: #2196f3; }
+.tipo-manos { background: #ff9800; }
+
+/* Contenido */
+.pedido-content p {
+  margin: 4px 0;
+}
+
+/* Botones */
+.card-buttons {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.pedido-card:hover .card-buttons {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+.card-buttons button {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: rgba(255,255,255,0.9);
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.card-buttons button:hover {
+  background-color: #fff;
+}
+
+/* Paginación */
+.pagination {
+  margin: 20px 0;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+

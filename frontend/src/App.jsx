@@ -1,19 +1,17 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import PedidosList from './pages/PedidosList';
-import PedidoDetail from './pages/PedidoDetail';
-import PedidoForm from './pages/PedidoForm';
-import Navbar from './components/Navbar';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import ListaPedidos from "./pages/ListaPedidos";
+import DetallePedido from "./pages/DetallePedido";
+import FormularioPedido from "./pages/FormularioPedido";
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<PedidosList />} />
-        <Route path="/pedidos/:id" element={<PedidoDetail />} />
-        <Route path="/crear-pedido" element={<PedidoForm />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<ListaPedidos />} />
+      <Route path="/detalle/:id" element={<DetallePedido />} />
+      <Route path="/editar/:id" element={<FormularioPedido />} />
+      <Route path="/crear" element={<FormularioPedido />} />
+    </Routes>
   );
 }
 
