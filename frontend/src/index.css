@@ -1,4 +1,3 @@
-
 body {
   font-family: "Poppins", "Segoe UI", Arial, sans-serif;
   background: linear-gradient(135deg, #0b1b33, #4672ab);
@@ -6,78 +5,80 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-
-.container {
-  width: 100%;
-  max-width: 1200px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
+/* Botón Crear Pedido */
+.crear-pedido-btn {
+  display: inline-flex;
   align-items: center;
+  gap: 6px;
+  margin: 20px;
+  padding: 8px 12px;
+  background-color: #ffd166;
+  color: #0b1b33;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+.crear-pedido-btn:hover {
+  background-color: #fcbf49;
 }
 
-
+/* Lista de tarjetas */
 .lista-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
+  gap: 20px;
+  padding: 1rem;
   justify-items: center;
-  width: 100%;
 }
 
-/* Tarjeta de pedido */
+/* Tarjeta */
 .pedido-card {
-  position: relative;
-  border-radius: 16px;
-  padding: 16px;
   width: 100%;
   max-width: 250px;
-  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 12px;
+  padding: 16px;
   cursor: pointer;
   color: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-/* Hover para levantar la tarjeta */
+/* Colores según tipo de EPP */
+.tipo-Manos { background-color: #4caf50; }
+.tipo-Ojos { background-color: #2196f3; }
+.tipo-Respiración { background-color: #ff9800; }
+.tipo-Cuerpo { background-color: #9c27b0; }
+.tipo-Oídos { background-color: #f44336; }
+
+/* Hover efecto */
 .pedido-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* Contenido de la tarjeta */
-.pedido-content p {
-  margin: 4px 0;
-}
-
-/* Botones dentro de la tarjeta, ocultos por defecto */
+/* Botones dentro de tarjeta */
 .card-buttons {
-  display: none;
-  gap: 8px;
-  margin-top: 10px;
-  justify-content: space-around;
-}
-
-/* Mostrar botones al hover */
-.pedido-card:hover .card-buttons {
   display: flex;
+  gap: 6px;
+  margin-top: 10px;
 }
-
-/* Estilo de botones */
 .card-buttons button {
+  flex: 1;
   padding: 6px 10px;
   font-size: 0.8rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  background-color: rgba(255,255,255,0.9);
+  background-color: rgba(255,255,255,0.8);
   color: #333;
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
-
 .card-buttons button:hover {
   background-color: #fff;
 }
@@ -88,9 +89,7 @@ body {
   display: flex;
   gap: 6px;
   justify-content: center;
-  flex-wrap: wrap;
 }
-
 .pagination button {
   padding: 6px 12px;
   cursor: pointer;
@@ -98,113 +97,66 @@ body {
   color: #fff;
   border: none;
   border-radius: 6px;
-  transition: all 0.2s;
 }
-
+.pagination button.active {
+  font-weight: bold;
+  background-color: rgba(255,209,102,0.8);
+  color: #0b1b33;
+}
 .pagination button:hover {
   background-color: rgba(255,255,255,0.4);
 }
 
-.pagination button.active {
-  font-weight: bold;
-  text-decoration: underline;
-  background-color: rgba(255, 209, 102, 0.8);
-  color: #0b1b33;
-}
-
-/* Botón crear pedido */
-.btn-crear {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  background-color: #ffd166;
-  color: #0b1b33;
-  border: none;
-  cursor: pointer;
-  margin-bottom: 1rem;
-}
-
-.btn-crear:hover {
-  background-color: #fcbf49;
-}
-
-/* Animación de aparición */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.container, .pedido-card, form {
-  animation: fadeInUp 0.5s ease forwards;
-}
-
-.form-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  padding: 2rem;
-  background: linear-gradient(135deg, #0b1b33, #4672ab);
-}
-
-.form-card {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 2rem;
+/* Formulario */
+.form-container {
+  background-color: rgba(255,255,255,0.05);
   border-radius: 12px;
-  width: 100%;
+  padding: 2rem;
+  margin: 2rem auto;
   max-width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  color: #fff;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  gap: 12px;
 }
-
-.form-card h2 {
+.form-container h2 {
   text-align: center;
-  margin-bottom: 1rem;
+  color: #ffd166;
 }
-
-.form-card label {
+.form-container label {
   font-weight: bold;
 }
-
-.form-card input, .form-card select {
-  padding: 0.5rem;
+.form-container input, 
+.form-container select {
+  padding: 8px;
   border-radius: 6px;
-  border: none;
-  width: 100%;
+  border: 1px solid rgba(255,255,255,0.3);
+  background-color: rgba(255,255,255,0.1);
+  color: #fff;
 }
-
+.form-container input:focus,
+.form-container select:focus {
+  border-color: #ffd166;
+  outline: none;
+}
 .form-buttons {
   display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
+  gap: 10px;
+  justify-content: center;
 }
-
 .form-buttons button {
-  padding: 0.5rem 1rem;
+  padding: 8px 12px;
   border-radius: 6px;
+  border: none;
   cursor: pointer;
   font-weight: bold;
-  border: none;
-  transition: all 0.3s ease;
+  background-color: #ffd166;
+  color: #0b1b33;
 }
-
 .form-buttons button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  background-color: #fcbf49;
 }
-
-.form-error {
-  color: #ff6b6b;
+.error {
+  color: #ff4c4c;
+  font-weight: bold;
   text-align: center;
 }
