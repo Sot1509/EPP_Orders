@@ -2,6 +2,7 @@ package com.company.orders.backend.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Pedido {
@@ -10,11 +11,18 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "La cantidad es obligatoria")
+    @Min(value = 1, message = "La cantidad debe ser mayor a 0")
     private Integer cantidad;
+
+    @NotBlank(message = "La empresa es obligatoria")
     private String empresa;
+
+    @NotNull(message = "La fecha es obligatoria")
     private LocalDate fecha;
 
     @ManyToOne
+    @NotNull(message = "El EPP es obligatorio")
     private Epp epp;
 
     public Pedido() {}
