@@ -3,6 +3,12 @@ import { usePedidos } from "../context/PedidoContext";
 import FormularioPedido from "./FormularioPedido";
 import "../index.css";
 
+// Función para generar un color único a partir del ID del EPP
+const generarColor = (id) => {
+  const hue = (id * 137) % 360; // Distribuye colores uniformemente
+  return `hsl(${hue}, 65%, 55%)`;
+};
+
 const ListaPedidos = () => {
   const { pedidos, loading, error, eliminarPedido } = usePedidos();
 
@@ -32,7 +38,11 @@ const ListaPedidos = () => {
     <>
       <div className="lista-container">
         {pedidosMostrados.map((pedido) => (
-          <div className="pedido-card" key={pedido.id}>
+          <div
+            className="pedido-card"
+            key={pedido.id}
+            style={{ backgroundColor: generarColor(pedido.epp.id) }}
+          >
             <div className="pedido-content">
               <h3>{pedido.epp.nombre}</h3>
               <p>Cantidad: {pedido.cantidad}</p>
@@ -41,14 +51,13 @@ const ListaPedidos = () => {
             </div>
 
             <div className="card-buttons">
-              <button onClick={() => setPedidoEditar(pedido)}>Editar</button>
+              <button onClick={() => setPedidoEditar(pedido)}>Ver / Editar</button>
               <button onClick={() => eliminarPedido(pedido.id)}>Eliminar</button>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Paginación */}
       {totalPaginas > 1 && (
         <div className="pagination">
           <button
