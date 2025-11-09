@@ -1,3 +1,4 @@
+
 body {
   font-family: "Poppins", "Segoe UI", Arial, sans-serif;
   background: linear-gradient(135deg, #0b1b33, #4672ab);
@@ -10,43 +11,49 @@ body {
   align-items: center;
 }
 
-/* Contenedor de tarjetas */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 .lista-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  gap: 1rem;
   justify-items: center;
-  padding: 1rem;
+  width: 100%;
 }
 
-/* Tarjetas */
+/* Tarjeta de pedido */
 .pedido-card {
   position: relative;
   border-radius: 16px;
   padding: 16px;
   width: 100%;
   max-width: 250px;
-  color: #fff;
-  cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  color: #fff;
 }
 
-/* Elevación y animación al pasar el mouse */
+/* Hover para levantar la tarjeta */
 .pedido-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* Contenido dentro de la tarjeta */
-.pedido-content h3 {
-  margin: 0 0 8px 0;
-}
-
+/* Contenido de la tarjeta */
 .pedido-content p {
   margin: 4px 0;
 }
 
-/* Botones ocultos inicialmente */
+/* Botones dentro de la tarjeta, ocultos por defecto */
 .card-buttons {
   display: none;
   gap: 8px;
@@ -54,21 +61,21 @@ body {
   justify-content: space-around;
 }
 
-/* Mostrar botones al pasar el mouse */
+/* Mostrar botones al hover */
 .pedido-card:hover .card-buttons {
   display: flex;
 }
 
-/* Botones estilo básico */
+/* Estilo de botones */
 .card-buttons button {
   padding: 6px 10px;
   font-size: 0.8rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255,255,255,0.9);
   color: #333;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .card-buttons button:hover {
@@ -81,6 +88,7 @@ body {
   display: flex;
   gap: 6px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .pagination button {
@@ -90,6 +98,11 @@ body {
   color: #fff;
   border: none;
   border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.pagination button:hover {
+  background-color: rgba(255,255,255,0.4);
 }
 
 .pagination button.active {
@@ -99,6 +112,99 @@ body {
   color: #0b1b33;
 }
 
-.pagination button:hover {
-  background-color: rgba(255,255,255,0.4);
+/* Botón crear pedido */
+.btn-crear {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: #ffd166;
+  color: #0b1b33;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.btn-crear:hover {
+  background-color: #fcbf49;
+}
+
+/* Animación de aparición */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container, .pedido-card, form {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0b1b33, #4672ab);
+}
+
+.form-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.form-card h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.form-card label {
+  font-weight: bold;
+}
+
+.form-card input, .form-card select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: none;
+  width: 100%;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.form-buttons button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.form-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.form-error {
+  color: #ff6b6b;
+  text-align: center;
 }
